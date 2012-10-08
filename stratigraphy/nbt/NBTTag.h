@@ -19,12 +19,12 @@ namespace stratigraphy{ namespace nbt {
         LIST        = 9,
         COMPOUND    = 10,
         INT_ARRAY   = 11
-    }
+    };
     
     class NBTTag {
         public:
             NBTTag();
-            NBTTag(const NBTtag &tag);
+            NBTTag(const NBTTag &tag);
 
             virtual ~NBTTag() = 0;
 
@@ -34,12 +34,13 @@ namespace stratigraphy{ namespace nbt {
             NBTTag & operator= (const NBTTag &);
         private:
             //No private data
-    }
+    };
 
     class NBTTagCompound : public NBTTag {
         public:
-            NBTTagCompound(std::string _name);
-            NBTTagCompound(std::string _name, std::vector<NBTTag> tags);
+            NBTTagCompound();
+            NBTTagCompound(std::string* name);
+            NBTTagCompound(std::string* name, std::vector<NBTTag*>* tags);
             NBTTagCompound(const NBTTagCompound &tag);
 
             virtual ~NBTTagCompound();
@@ -47,13 +48,16 @@ namespace stratigraphy{ namespace nbt {
             virtual TagType GetTagType();
             virtual void WriteTo(std::ostream out);
 
-            std::vector<NBTTag> GetTags();
-            void AddTag(NBTTag t);
+            std::vector<NBTTag&> GetTags();
+            void AddTag(NBTTag& t);
             
-            NBTTag & operator= (const NBTTagCompound &rhs);
+            NBTTagCompound& operator= (const NBTTagCompound &rhs);
         private:
-            std::vector<NBTTag>& _tags;
+            void Init(std::string* name, std::vector<NBTTag*>* tags);
+
+            std::vector<NBTTag*> _tags;
             std::string _name;
-    }
+    };
+
 }; };
 #endif

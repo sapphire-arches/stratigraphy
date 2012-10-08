@@ -6,13 +6,13 @@
 #include <climits>
 
 namespace stratigraphy { namespace nbt {
-    void WriteShortBE(ostream o, short s);
-    void WriteIntBE  (ostream o, int i  );
-    void WriteLongBE (ostream o, long l );
+    void WriteShortBE(std::ostream& o, short s, char *buff);
+    void WriteIntBE  (std::ostream& o, int   i, char *buff);
+    void WriteLongBE (std::ostream& o, long  l, char *buff);
     
-    short ReadShortBE(istream from);
-    int   ReadIntBE  (istream from);
-    long  ReadLongBE (istream from);
+    short ReadShortBE(std::istream& from, char *buff);
+    int   ReadIntBE  (std::istream& from, char *buff);
+    long  ReadLongBE (std::istream& from, char *buff);
 }; };
 
 #endif

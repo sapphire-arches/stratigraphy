@@ -1,3 +1,5 @@
+include_directories (..)
+
 add_library(nbt IOUtils
                 NBTTagCompound
                 NBTTag

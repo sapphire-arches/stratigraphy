@@ -1,4 +1,6 @@
-#include"nbt/IOUtils.h"
+#include "nbt/IOUtils.h"
 
-stratigraphy::nbt::WriteShort(ostream o, short s, char *buff) {
+using namespace std;
+
+void stratigraphy::nbt::WriteShortBE(ostream& o, short s, char *buff) {
 }

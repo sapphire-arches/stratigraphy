@@ -5,13 +5,13 @@ using namespace stratigraphy::nbt;
 NBTTree::NBTTree() : _root() {
 }
 
-NBTTree::NBTTree(const NBTTree &other) : root (other.root) {
+NBTTree::NBTTree(const NBTTree &other) : _root (other._root) {
 }
 
 NBTTree::~NBTTree() {
 }
 
-NBTTree::GetRoot() {
+NBTTagCompound NBTTree::GetRoot() {
     return _root;
 }
 

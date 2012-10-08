@@ -11,6 +11,6 @@ NBTTag::NBTTag(const NBTTag &tag) {
     //Do nothing
 }
 
-NBTTag & operator=(const NBTTag &rhs) {
+NBTTag & NBTTag::operator=(const NBTTag &rhs) {
     //Do nothing
 }
