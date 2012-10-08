@@ -2,7 +2,8 @@
 #define _STRAT_NBT_NBTTAG_H_
 
 #include <vector>
-#include <stdio>
+#include <ostream>
+#include <string>
 
 namespace stratigraphy{ namespace nbt {
     enum TagType {
@@ -37,8 +38,8 @@ namespace stratigraphy{ namespace nbt {
 
     class NBTTagCompound : public NBTTag {
         public:
-            NBTTagCompound();
-            NBTTagCompound(std::vector<NBTTag> tags);
+            NBTTagCompound(std::string _name);
+            NBTTagCompound(std::string _name, std::vector<NBTTag> tags);
             NBTTagCompound(const NBTTagCompound &tag);
 
             virtual ~NBTTagCompound();
@@ -50,6 +51,9 @@ namespace stratigraphy{ namespace nbt {
             void AddTag(NBTTag t);
             
             NBTTag & operator= (const NBTTagCompound &rhs);
+        private:
+            std::vector<NBTTag>& _tags;
+            std::string _name;
     }
 }; };
 #endif

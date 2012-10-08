@@ -2,7 +2,7 @@
 
 using namespace stratigraphy::nbt;
 
-NBTTree::NBTTree() : root() {
+NBTTree::NBTTree() : _root() {
 }
 
 NBTTree::NBTTree(const NBTTree &other) : root (other.root) {
@@ -12,13 +12,13 @@ NBTTree::~NBTTree() {
 }
 
 NBTTree::GetRoot() {
-    return root;
+    return _root;
 }
 
 NBTTree &NBTTree::operator= (const NBTTree &other) {
     if (&other == this) {
         return *this;
     }
-    root = other.root;
+    _root = other._root;
     return *this;
 }

@@ -16,7 +16,7 @@ namespace stratigraphy { namespace nbt {
             NBTTree & operator= (const NBTTree &tree);
 
         private:
-            NBTTagCompound &root;
+            NBTTagCompound &_root;
     }
 }; };
 
