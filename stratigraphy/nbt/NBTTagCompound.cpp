@@ -5,7 +5,7 @@ using namespace stratigraphy;
 using namespace nbt;
 using namespace std;
 
-NBTTagCompound::NBTTagCompound(string name) : _tags(), _name(name) {
+NBTTagCompound::NBTTagCompound(string &name) : _tags(), _name(name) {
 }
 
 NBTTagCompound::NBTTagCompound(string name, vector<NBTTag> tags) : _name(name) {
@@ -23,5 +23,7 @@ TagType NBTTagCompound::GetTagType() {
 void NBTTagCompound::WriteTo(ostream out) {
     out.put(int(TagType.COMPOUND)); //Write tag header
     //Write name, if there is one.
-
+    if (_name.length() > 0) {
+        out.write(_name.c_str(), _name.length());
+    }
 }
