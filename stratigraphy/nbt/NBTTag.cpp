@@ -2,6 +2,7 @@
 
 using namespace stratigraphy;
 using namespace nbt;
+using namespace std;
 
 NBTTag::NBTTag() {
     //Do nothing
@@ -13,4 +14,14 @@ NBTTag::NBTTag(const NBTTag &tag) {
 
 NBTTag & NBTTag::operator=(const NBTTag &rhs) {
     //Do nothing
+}
+
+ostream& NBTTag::operator<<(ostream& ost) {
+    WriteTo(ost);
+    return ost;
+}
+
+istream& NBTTag::operator>>(istream& ins) {
+    ReadFrom(ins);
+    return ins;
 }

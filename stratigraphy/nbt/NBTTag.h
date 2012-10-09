@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <ostream>
+#include <istream>
 #include <string>
 
 namespace stratigraphy{ namespace nbt {
@@ -29,11 +30,30 @@ namespace stratigraphy{ namespace nbt {
             virtual ~NBTTag() = 0;
 
             virtual TagType GetTagType() = 0;
-            virtual void WriteTo(std::ostream out) = 0;
+            virtual void WriteTo(std::ostream& out) = 0;
+            virtual void ReadFrom(std::istream& in) = 0;
 
-            NBTTag & operator= (const NBTTag &);
+            NBTTag& operator= (const NBTTag &);
+            std::ostream& operator<< (std::ostream& ost);
+            std::istream& operator>> (std::istream& ins); 
         private:
             //No private data
+    };
+
+    class NBTTagEnd : public NBTTag {
+        public:
+            NBTTagEnd();
+            NBTTagEnd(std::string* name);
+            NBTTagEnd(const NBTTagEnd& tag);
+
+            virtual ~NBTTagEnd();
+
+            virtual void WriteTo(std::ostream& out);
+            virtual void ReadFrom(std::istream& in);
+
+            NBTTagEnd& operator= (const NBTTagEnd &rhs);
+        private:
+            bool _named;
     };
 
     class NBTTagCompound : public NBTTag {
@@ -46,7 +66,8 @@ namespace stratigraphy{ namespace nbt {
             virtual ~NBTTagCompound();
 
             virtual TagType GetTagType();
-            virtual void WriteTo(std::ostream out);
+            virtual void WriteTo(std::ostream& out);
+            virtual void ReadFrom(std::istream& in);
 
             std::vector<NBTTag&> GetTags();
             void AddTag(NBTTag& t);

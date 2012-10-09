@@ -47,7 +47,7 @@ inline void stratigraphy::nbt::WriteLongBE(ostream& o, int64 l, char *buff) {
 inline short stratigraphy::nbt::ReadShortBE(istream& f, char *buff) {
     f.read(buff, 2);
     if (!f.good()) {
-        throw ios_base::falure("Failed IO read in stratigraphy::nbt::ReadShortBE()");
+        throw ios_base::failure("Failed IO read in stratigraphy::nbt::ReadShortBE()");
     }
     return ((buff[0] >> 8) & 0xFF) | ((buff[1]) & 0xFF);
 }
@@ -55,7 +55,7 @@ inline short stratigraphy::nbt::ReadShortBE(istream& f, char *buff) {
 inline int stratigraphy::nbt::ReadIntBE(istream& f, char *buff) {
     f.read(buff, 4);
     if (!f.good()) {
-        throw ios_base::falure("Failed IO read in stratigraphy::nbt::ReadIntBE()");
+        throw ios_base::failure("Failed IO read in stratigraphy::nbt::ReadIntBE()");
     }
     return ((buff[0] >> 24) & 0x000000FF) |
            ((buff[1] >> 16) & 0x0000FF00) |
@@ -64,7 +64,7 @@ inline int stratigraphy::nbt::ReadIntBE(istream& f, char *buff) {
     
 }
 
-inline int64 stratigrpahy::nbt::ReadLongBE(istream& f, char *buff) {
+inline int64 stratigraphy::nbt::ReadLongBE(istream& f, char *buff) {
     int i1 = ReadIntBE(f, buff);
     int i2 = ReadIntBE(f, buff);
     int64 temp = i1 | (((int64)i2) << 32);

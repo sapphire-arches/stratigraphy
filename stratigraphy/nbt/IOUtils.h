@@ -6,9 +6,10 @@
 #include <climits>
 
 #ifdef _MSC_VER
-typedef int64 __int64;
+typedef __int64 int64;
 #else
-typedef int64 long long;
+typedef long long int64;
+#endif
 
 namespace stratigraphy { namespace nbt {
     inline void WriteShortBE(std::ostream& o, short s, char *buff);
