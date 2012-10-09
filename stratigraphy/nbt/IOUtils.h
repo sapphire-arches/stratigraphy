@@ -5,14 +5,19 @@
 #include <ostream>
 #include <climits>
 
+#ifdef _MSC_VER
+typedef int64 __int64;
+#else
+typedef int64 long long;
+
 namespace stratigraphy { namespace nbt {
-    void WriteShortBE(std::ostream& o, short s, char *buff);
-    void WriteIntBE  (std::ostream& o, int   i, char *buff);
-    void WriteLongBE (std::ostream& o, long long l, char *buff);
+    inline void WriteShortBE(std::ostream& o, short s, char *buff);
+    inline void WriteIntBE  (std::ostream& o, int   i, char *buff);
+    inline void WriteLongBE (std::ostream& o, int64 l, char *buff);
     
-    short ReadShortBE(std::istream& from, char *buff);
-    int   ReadIntBE  (std::istream& from, char *buff);
-    long long ReadLongBE (std::istream& from, char *buff);
+    inline short ReadShortBE(std::istream& from, char *buff);
+    inline int   ReadIntBE  (std::istream& from, char *buff);
+    inline int64 ReadLongBE (std::istream& from, char *buff);
 }; };
 
 #endif
