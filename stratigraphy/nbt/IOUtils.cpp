@@ -80,5 +80,5 @@ inline string ReadString(istream& i) {
     short len = ReadShort(i);
     char *buff = char[len];
     i.read(buff, len);
-    return string(buff, len);
+    return *(new string(buff, len);)
 }
