@@ -2,6 +2,7 @@
 #define _STRAT_NBT_NBTTAG_H_
 
 #include <vector>
+#include <map>
 #include <ostream>
 #include <istream>
 #include <string>
@@ -32,6 +33,7 @@ namespace stratigraphy{ namespace nbt {
             virtual TagType GetTagType() = 0;
             virtual void WriteTo(std::ostream& out) = 0;
             virtual void ReadFrom(std::istream& in) = 0;
+            virtual std::string GetName() = 0;
 
             NBTTag& operator= (const NBTTag &);
             std::ostream& operator<< (std::ostream& ost);
@@ -50,6 +52,7 @@ namespace stratigraphy{ namespace nbt {
             virtual TagType GetTagType();
             virtual void WriteTo(std::ostream& out);
             virtual void ReadFrom(std::istream& in);
+            virtual std::string GetName();
 
             NBTTagEnd& operator= (const NBTTagEnd& rhs);
         private:
@@ -66,6 +69,7 @@ namespace stratigraphy{ namespace nbt {
             virtual TagType GetTagType();
             virtual void WriteTo(std::ostream& out);
             virtual void ReadFrom(std::ostream& in);
+            virtual std::string GetName();
 
             NBTTagByte& operator= (const NBTTagEnd& rhs);
         private:
@@ -77,6 +81,7 @@ namespace stratigraphy{ namespace nbt {
         public:
             NBTTagCompound(std::string* name);
             NBTTagCompound(std::string* name, std::vector<NBTTag*>* tags);
+            NBTTagCompound(std::string* name, std::map<std::string, NBTTag*>* tags);
             NBTTagCompound(const NBTTagCompound &tag);
 
             virtual ~NBTTagCompound();
@@ -84,15 +89,16 @@ namespace stratigraphy{ namespace nbt {
             virtual TagType GetTagType();
             virtual void WriteTo(std::ostream& out);
             virtual void ReadFrom(std::istream& in);
+            virtual std::string GetName();
 
             std::vector<NBTTag&> GetTags();
             void AddTag(NBTTag& t);
             
             NBTTagCompound& operator= (const NBTTagCompound& rhs);
         private:
-            void Init(std::string* name, std::vector<NBTTag*>* tags);
+            void Init(std::string* name, std::map<NBTTag*>* tags);
 
-            std::vector<NBTTag*> _tags;
+            std::map<NBTTag*> _tags;
 
             std::string _name;
     };

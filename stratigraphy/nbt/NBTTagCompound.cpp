@@ -1,20 +1,18 @@
 #include "nbt/NBTTag.h"
 #include <string>
+#include "nbt/IOUtils.h"
 
 using namespace stratigraphy;
 using namespace nbt;
 using namespace std;
 
-NBTTagCompound::NBTTagCompound() {
-    Init(new string(), new vector<NBTTag*>());
-}
-
 NBTTagCompound::NBTTagCompound(string* name) {
     Init(name, new vector<NBTTag*>());
 }
 
-NBTTagCompound::NBTTagCompound(string* name, vector<NBTTag*>* tags) {
-    Init(name, tags);
+NBTTagCompound::NBTTagCompound(string* name, vector<NBTTag*>* tagList) {
+    
+    Init(name, );
 }
 
 void NBTTagCompound::Init(string* name, vector<NBTTag*>* tags) {
@@ -31,10 +29,14 @@ TagType NBTTagCompound::GetTagType() {
     return COMPOUND;
 }
 
-void NBTTagCompound::WriteTo(ostream out) {
+string& NBTTagCompound::GetName() {
+    return *_name();
+}
+
+void NBTTagCompound::WriteTo(ostream& out) {
+    //General buffer
+    char *buff = new char[4];
     out.put(GetTagType()); //Write tag header
     //Write name, if there is one.
-    if (_name.length() > 0) {
-        out.write(_name.c_str(), _name.length());
-    }
+    WriteString(_name, buff
 }

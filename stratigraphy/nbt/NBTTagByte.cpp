@@ -43,3 +43,7 @@ NBTTagByte& NBTTagByte::operator= (const NBTTagEnd& rhs) {
     
     return *this;
 }
+
+string& NBTTagByte::GetName() {
+    return *_name;
+}
