@@ -4,34 +4,29 @@ using namespace stratigraphy;
 using namespace nbt;
 using namespace std;
 
-NBTTagEnd::NBTTagEnd() : _named(false) {
+NBTTagEnd::NBTTagEnd() {
 }
 
-NBTTagEnd::NBTTagEnd(string* name) : _named(true) {
-}
-
-NBTTagEnd::NBTTagEnd(const NBTTagEnd& tag) : _named(tag._named) {
+NBTTagEnd::NBTTagEnd(const NBTTagEnd& tag) {
 }
 
 NBTTagEnd::~NBTTagEnd() {
 }
 
+TagType NBTTagEnd::GetTagType() {
+    return END;
+}
+
 void NBTTagEnd::WriteTo(std::ostream& out) {
-    if (_named) {
-        out.put(0);
-    }
+    out.put(0);
 }
 
 void NBTTagEnd::ReadFrom(std::istream& in) {
-    //TODO: Make sure that this will actually work
-    _named = false;
-    if (in.peek() == 0) {
-        in.get();
-        _named = true;
+    if (in.get() != 0) {
+        in.setstate(ios_base::iostate::failbit);
     }
 }
 
 NBTTagEnd& NBTTagEnd::operator= (const NBTTagEnd &rhs) {
-    _named = rhs._named;
     return *this;
 }
