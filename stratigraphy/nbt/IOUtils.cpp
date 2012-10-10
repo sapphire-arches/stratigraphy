@@ -70,3 +70,15 @@ inline int64 stratigraphy::nbt::ReadLongBE(istream& f, char *buff) {
     int64 temp = i1 | (((int64)i2) << 32);
     return temp;
 }
+
+inline void WriteString(ostream& o, string s) {
+    WriteShort(short(s.length())); //write len
+    o << s; //write string
+}
+
+inline string ReadString(istream& i) {
+    short len = ReadShort(i);
+    char *buff = char[len];
+    i.read(buff, len);
+    return string(buff, len);
+}

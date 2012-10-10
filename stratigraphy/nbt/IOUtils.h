@@ -4,6 +4,7 @@
 #include <istream>
 #include <ostream>
 #include <climits>
+#include <string>
 
 #ifdef _MSC_VER
 typedef __int64 int64;
@@ -19,6 +20,9 @@ namespace stratigraphy { namespace nbt {
     inline short ReadShortBE(std::istream& from, char *buff);
     inline int   ReadIntBE  (std::istream& from, char *buff);
     inline int64 ReadLongBE (std::istream& from, char *buff);
+
+    inline void WriteString(std::ostream& o, std::string& s);
+    inline std::string ReadString(std::istream& i);
 }; };
 
 #endif
