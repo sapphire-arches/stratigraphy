@@ -36,4 +36,10 @@ virtual void NBTTagByte::ReadFrom(istream& is) {
     _val = is.get();
 }
 
-NBTTagByte& NBTTagByte::operator= (const NBTTagEnd& rhs);
+NBTTagByte& NBTTagByte::operator= (const NBTTagEnd& rhs) {
+    if (rhs != *this)
+        return *this;
+
+    
+    return *this;
+}

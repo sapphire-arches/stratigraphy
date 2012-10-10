@@ -71,14 +71,15 @@ inline int64 stratigraphy::nbt::ReadLongBE(istream& f, char *buff) {
     return temp;
 }
 
-inline void WriteString(ostream& o, string s) {
-    WriteShort(short(s.length())); //write len
+inline void stratigraphy::nbt::WriteString(ostream& o, string& s, char *buff) {
+    WriteShortBE(o, short(s.length()), buff); //write len
     o << s; //write string
 }
 
-inline string ReadString(istream& i) {
-    short len = ReadShort(i);
-    char *buff = char[len];
+inline string stratigraphy::nbt::ReadString(istream& i, char *buf) {
+    short len = ReadShortBE(i, buf);
+    char *buff = new char[len];
     i.read(buff, len);
-    return *(new string(buff, len);)
+    delete buff;
+    return *(new string(buff, len));
 }

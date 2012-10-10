@@ -21,8 +21,8 @@ namespace stratigraphy { namespace nbt {
     inline int   ReadIntBE  (std::istream& from, char *buff);
     inline int64 ReadLongBE (std::istream& from, char *buff);
 
-    inline void WriteString(std::ostream& o, std::string& s);
-    inline std::string ReadString(std::istream& i);
+    inline void WriteString(std::ostream& o, std::string& s, char *buf);
+    inline std::string ReadString(std::istream& i, char *buf);
 }; };
 
 #endif

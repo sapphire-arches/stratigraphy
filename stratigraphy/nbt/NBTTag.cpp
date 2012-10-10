@@ -13,7 +13,7 @@ NBTTag::NBTTag(const NBTTag &tag) {
 }
 
 NBTTag & NBTTag::operator=(const NBTTag &rhs) {
-    //Do nothing
+    return *this;
 }
 
 ostream& NBTTag::operator<<(ostream& ost) {
