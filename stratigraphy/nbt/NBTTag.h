@@ -43,22 +43,38 @@ namespace stratigraphy{ namespace nbt {
     class NBTTagEnd : public NBTTag {
         public:
             NBTTagEnd();
-            NBTTagEnd(std::string* name);
             NBTTagEnd(const NBTTagEnd& tag);
 
             virtual ~NBTTagEnd();
-
+            
+            virtual TagType GetTagType();
             virtual void WriteTo(std::ostream& out);
             virtual void ReadFrom(std::istream& in);
 
-            NBTTagEnd& operator= (const NBTTagEnd &rhs);
+            NBTTagEnd& operator= (const NBTTagEnd& rhs);
         private:
-            bool _named;
+            //No data
+    };
+
+    class NBTTagByte : public NBTTag {
+        public:
+            NBTTagByte(std::string* name);
+            NBTTagByte(std::string* name, char value);
+
+            virtual ~NBTTagByte();
+
+            virtual TagType GetTagType();
+            virtual void WriteTo(std::ostream& out);
+            virtual void ReadFrom(std::ostream& in);
+
+            NBTTagByte& operator= (const NBTTagEnd& rhs);
+        private:
+            char _val;
+            std::string* _name;
     };
 
     class NBTTagCompound : public NBTTag {
         public:
-            NBTTagCompound();
             NBTTagCompound(std::string* name);
             NBTTagCompound(std::string* name, std::vector<NBTTag*>* tags);
             NBTTagCompound(const NBTTagCompound &tag);
@@ -72,13 +88,13 @@ namespace stratigraphy{ namespace nbt {
             std::vector<NBTTag&> GetTags();
             void AddTag(NBTTag& t);
             
-            NBTTagCompound& operator= (const NBTTagCompound &rhs);
+            NBTTagCompound& operator= (const NBTTagCompound& rhs);
         private:
             void Init(std::string* name, std::vector<NBTTag*>* tags);
 
             std::vector<NBTTag*> _tags;
+
             std::string _name;
     };
-
 }; };
 #endif
