@@ -1,49 +1,57 @@
 #include "nbt/NBTTag.h"
 #include "nbt/IOUtils.h"
+#include <boost/format.hpp>
 
 using namespace stratigraphy;
 using namespace nbt;
 
 using namespace std;
 
-NBTTagByte::NBTTagByte(string *name) : _name(name), _val(0) {
+NBTTagByte::NBTTagByte(string& name) : _name(name), _val(0) {
 }
 
-NBTTagByte::NBTTagByte(string *name, char val) : _name(name), _val(val) {
+NBTTagByte::NBTTagByte(string& name, char val) : _name(name), _val(val) {
 }
 
 NBTTagByte::~NBTTagByte() {
-    delete _name;
+    delete &_name;
 }
 
-virtual TagType NBTTagByte::GetTagType() {
+TagType NBTTagByte::GetTagType() {
     return BYTE;
 }
 
-virtual void NBTTagByte::WriteTo(ostream& out) {
+void NBTTagByte::WriteTo(ostream& out) {
     out.put(char(BYTE)); //write our header
-    WriteString(out, *name); //Write name
-    out.put(val); //Write our value.
+    char buff[4];
+    WriteString(out, _name, buff); //Write name
+    out.put(_val); //Write our value.
 }
 
-virtual void NBTTagByte::ReadFrom(istream& is) {
+void NBTTagByte::ReadFrom(istream& is) {
     int i = is.get();
     if (i != BYTE) {
-        is.setstate(ios_base::iostate::failbit);
-        throw ios_base::failure("Unexpected byte: " + i + " while reading TAG_BYTE");
+        is.setstate(ios_base::failbit);
+        const string fmt = "Error reading Byte tag, unexpected tag header byte %02x.";
+        const string temp = (boost::format(fmt) % i).str();
+        throw ios_base::failure(temp);
     }
-    _name = ReadString(is);
+    char buff[4];
+    _name = ReadString(is, buff);
     _val = is.get();
 }
 
-NBTTagByte& NBTTagByte::operator= (const NBTTagEnd& rhs) {
-    if (rhs != *this)
+NBTTagByte& NBTTagByte::operator= (const NBTTagByte& rhs) {
+    if (this == &rhs)
         return *this;
-
     
+    delete &_name;
+    _name = string(rhs._name);
+    _val = rhs._val;
+
     return *this;
 }
 
 string& NBTTagByte::GetName() {
-    return *_name;
+    return _name;
 }

@@ -6,17 +6,24 @@ using namespace stratigraphy;
 using namespace nbt;
 using namespace std;
 
-NBTTagCompound::NBTTagCompound(string* name) {
-    Init(name, new vector<NBTTag*>());
+NBTTagCompound::NBTTagCompound(string& name) {
+    Init(name, new TagMap());
 }
 
-NBTTagCompound::NBTTagCompound(string* name, vector<NBTTag*>* tagList) {
-    
-    Init(name, );
+NBTTagCompound::NBTTagCompound(string& name, vector<NBTTag*>& tagList) {
+    TagMap* tags = new TagMap();
+
+    typename vector<NBTTag*>::iterator it;
+    for(it = tagList.begin(); it != tagList.end(); it++) {
+        string name = (*it)->GetName();
+        tags->insert(make_pair(name, (*it)));
+    }
+
+    Init(name, tags);
 }
 
-void NBTTagCompound::Init(string* name, vector<NBTTag*>* tags) {
-    _name = *name;
+void NBTTagCompound::Init(string& name, TagMap* tags) {
+    _name = name;
     _tags = *tags;
 }
 
@@ -30,7 +37,7 @@ TagType NBTTagCompound::GetTagType() {
 }
 
 string& NBTTagCompound::GetName() {
-    return *_name();
+    return _name;
 }
 
 void NBTTagCompound::WriteTo(ostream& out) {
@@ -38,5 +45,5 @@ void NBTTagCompound::WriteTo(ostream& out) {
     char *buff = new char[4];
     out.put(GetTagType()); //Write tag header
     //Write name, if there is one.
-    WriteString(_name, buff
+    WriteString(out, _name, buff)
 }

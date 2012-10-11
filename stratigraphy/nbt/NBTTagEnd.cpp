@@ -31,6 +31,6 @@ NBTTagEnd& NBTTagEnd::operator= (const NBTTagEnd &rhs) {
     return *this;
 }
 
-string NBTTagEnd::GetName() {
-    return name;
+string& NBTTagEnd::GetName() {
+    return *(new string());
 }
