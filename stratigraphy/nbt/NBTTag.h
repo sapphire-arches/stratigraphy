@@ -23,7 +23,9 @@ namespace stratigraphy{ namespace nbt {
         INT_ARRAY   = 11
     };
 
-    NBTTag GetFor(TagType ID) {
+    class NBTTag; //Forward declaration.
+
+    NBTTag GetFor(TagType id) {
         switch(id) {
             case END        : return *(new NBTTagEnd());
             case BYTE       : return *(new NBTTagByte());
