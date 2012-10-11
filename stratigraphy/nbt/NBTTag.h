@@ -22,6 +22,28 @@ namespace stratigraphy{ namespace nbt {
         COMPOUND    = 10,
         INT_ARRAY   = 11
     };
+
+    NBTTag GetFor(TagType ID) {
+        switch(id) {
+            case END        : return *(new NBTTagEnd());
+            case BYTE       : return *(new NBTTagByte());
+            /*
+            case SHORT      :
+            case INT        :
+            case LONG       :
+            case FLOAT      :
+            case DOUBLE     :
+            case BYTE_ARRAY :
+            case STRING     :
+            case LIST       :
+            */
+            case COMPOUND   : return *(new NBTTagCompound());
+            /*
+            case INT_ARRAY  : 
+            */
+            default: throw exception("We don't have a mapping for that tag type =(")
+        };
+    }
     
     class NBTTag {
         public:
