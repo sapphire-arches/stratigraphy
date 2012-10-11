@@ -2,6 +2,7 @@ include_directories (..)
 
 add_library(nbt IOUtils
                 NBTTagEnd
+                NBTagByte
                 NBTTagCompound
                 NBTTag
                 NBTTree
