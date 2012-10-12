@@ -1,8 +1,14 @@
 #include "nbt/NBTTree.h"
 
-using namespace stratigraphy::nbt;
+using namespace stratigraphy;
+using namespace nbt;
 
-NBTTree::NBTTree() : _root() {
+using namespace std;
+
+NBTTree::NBTTree(istream& from) : _root(from) {
+}
+
+NBTTree::NBTTree(string& name) : _root(name) {
 }
 
 NBTTree::NBTTree(const NBTTree &other) : _root (other._root) {
@@ -13,6 +19,10 @@ NBTTree::~NBTTree() {
 
 NBTTagCompound NBTTree::GetRoot() {
     return _root;
+}
+
+void NBTTree::WriteTo(ostream& to) {
+    _root.WriteTo(to);
 }
 
 NBTTree &NBTTree::operator= (const NBTTree &other) {

@@ -6,6 +6,7 @@
 #include <ostream>
 #include <istream>
 #include <string>
+#include <exception>
 
 namespace stratigraphy{ namespace nbt {
     enum TagType {
@@ -23,29 +24,6 @@ namespace stratigraphy{ namespace nbt {
         INT_ARRAY   = 11
     };
 
-    class NBTTag; //Forward declaration.
-
-    NBTTag GetFor(TagType id) {
-        switch(id) {
-            case END        : return *(new NBTTagEnd());
-            case BYTE       : return *(new NBTTagByte());
-            /*
-            case SHORT      :
-            case INT        :
-            case LONG       :
-            case FLOAT      :
-            case DOUBLE     :
-            case BYTE_ARRAY :
-            case STRING     :
-            case LIST       :
-            */
-            case COMPOUND   : return *(new NBTTagCompound());
-            /*
-            case INT_ARRAY  : 
-            */
-            default: throw exception("We don't have a mapping for that tag type =(")
-        };
-    }
     
     class NBTTag {
         public:
@@ -84,6 +62,7 @@ namespace stratigraphy{ namespace nbt {
 
     class NBTTagByte : public NBTTag {
         public:
+            NBTTagByte(std::istream& from);
             NBTTagByte(std::string& name);
             NBTTagByte(std::string& name, char value);
 
@@ -104,6 +83,7 @@ namespace stratigraphy{ namespace nbt {
         public:
             typedef std::map<std::string, NBTTag*> TagMap;
 
+            NBTTagCompound(std::istream& f);
             NBTTagCompound(std::string& name);
             NBTTagCompound(std::string& name, std::vector<NBTTag*>& tags);
             NBTTagCompound(std::string& name, TagMap* tags);
@@ -126,5 +106,40 @@ namespace stratigraphy{ namespace nbt {
             TagMap _tags;
             std::string _name;
     };
+
+    class NotImplementedException : public std::exception {
+        public:
+            NotImplementedException(const char* err) : _err(err) {
+            }
+
+            virtual const char* what() throw() {
+                return _err;
+            }
+        private:
+            const char *_err;
+    };
+
+    NBTTag& GetRead(TagType id, std::istream& from) {
+        switch(id) {
+            case END        : return *(new NBTTagEnd());
+            case BYTE       : return *(new NBTTagByte(from));
+            /*
+            case SHORT      :
+            case INT        :
+            case LONG       :
+            case FLOAT      :
+            case DOUBLE     :
+            case BYTE_ARRAY :
+            case STRING     :
+            case LIST       :
+            */
+            case COMPOUND   : return *(new NBTTagCompound(from));
+            /*
+            case INT_ARRAY  : 
+            */
+            default: throw NotImplementedException("We don't have a mapping for that tag type =(");
+        };
+    }
+    
 }; };
 #endif
