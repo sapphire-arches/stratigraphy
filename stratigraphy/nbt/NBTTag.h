@@ -7,6 +7,7 @@
 #include <istream>
 #include <string>
 #include <exception>
+#include "Platform.h"
 
 namespace stratigraphy{ namespace nbt {
     enum TagType {
@@ -116,6 +117,26 @@ namespace stratigraphy{ namespace nbt {
             int _val;
             std::string _name;
     };  
+
+    class NBTTagLong : public NBTTag {
+        public:
+            NBTTagLong(std::istream& from);
+            NBTTagLong(std::string& name);
+            NBTTagLong(std::string& name, int64 val);
+            
+            virtual ~NBTTagLong();
+
+            virtual TagType GetTagType();
+            virtual void WriteTo(std::ostream& o);
+            virtual void ReadFrom(std::istream& i);
+            virtual std::string& GetName();
+
+            NBTTagLong& operator= (const NBTTagLong& rhs);
+        private:
+            int64 _val;
+            std::string _name;
+    };  
+
 
     class NBTTagCompound : public NBTTag {
         public:

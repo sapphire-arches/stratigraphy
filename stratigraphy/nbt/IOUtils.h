@@ -1,16 +1,11 @@
 #ifndef _STRAT_NBT_IOUTILS_H_
 #define _STRAT_NBT_IOUTILS_H_
 
+#include "Platform.h"
 #include <istream>
 #include <ostream>
-#include <climits>
 #include <string>
 
-#ifdef _MSC_VER
-typedef __int64 int64;
-#else
-typedef long long int64;
-#endif
 
 namespace stratigraphy { namespace nbt {
     inline void WriteShortBE(std::ostream& o, short s, char *buff);

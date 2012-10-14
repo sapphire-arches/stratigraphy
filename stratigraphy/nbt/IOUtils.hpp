@@ -1,5 +1,3 @@
-#include "nbt/IOUtils.h"
-
 using namespace std;
 
 namespace stratigraphy { namespace nbt {
