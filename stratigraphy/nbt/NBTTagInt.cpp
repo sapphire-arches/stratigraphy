@@ -27,23 +27,23 @@ TagType NBTTagInt::GetTagType() {
 }
 
 void NBTTagInt::WriteTo(ostream& o) {
-    o.put(char(SHORT));
+    o.put(char(INT));
     char buff[4];
     WriteString(o, _name, buff);
-    WriteShortBE(o, _val, buff);
+    WriteIntBE(o, _val, buff);
 }
 
 void NBTTagInt::ReadFrom(istream& is) {
     int i = is.get();
-    if (i != SHORT) {
+    if (i != INT) {
         is.setstate(ios_base::failbit);
-        const string fmt = "Error reading short tag, unexpected tag header byte %02x.";
+        const string fmt = "Error reading int tag, unexpected tag header byte %02x.";
         const string temp = (boost::format(fmt) % i).str();
         throw ios_base::failure(temp);
     }
     char buff[4];
     _name = ReadString(is, buff);
-    _val = ReadShortBE(is, buff);
+    _val = ReadIntBE(is, buff);
 }
 
 string& NBTTagInt::GetName() {
