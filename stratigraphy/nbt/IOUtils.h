@@ -25,4 +25,6 @@ namespace stratigraphy { namespace nbt {
     inline std::string ReadString(std::istream& i, char *buf);
 }; };
 
+#include "nbt/IOUtils.hpp"
+
 #endif
