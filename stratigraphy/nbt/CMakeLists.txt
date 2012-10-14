@@ -1,9 +1,8 @@
 include_directories (..)
 
-add_library(ioutils IOUtils.cpp) #.cpp needed for some odd reason
-
 add_library(nbt NBTTagEnd
                 NBTTagByte
+                NBTTagShort
                 NBTTagCompound
                 NBTTag
                 NBTTree
