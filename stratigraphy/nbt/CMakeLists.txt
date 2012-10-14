@@ -3,6 +3,7 @@ include_directories (..)
 add_library(nbt NBTTagEnd
                 NBTTagByte
                 NBTTagShort
+                NBTTagInt
                 NBTTagCompound
                 NBTTag
                 NBTTree

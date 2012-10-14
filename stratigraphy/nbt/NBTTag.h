@@ -98,6 +98,25 @@ namespace stratigraphy{ namespace nbt {
             std::string _name;
     };
 
+    class NBTTagInt : public NBTTag {
+        public:
+            NBTTagInt(std::istream& from);
+            NBTTagInt(std::string& name);
+            NBTTagInt(std::string& name, int val);
+            
+            virtual ~NBTTagInt();
+
+            virtual TagType GetTagType();
+            virtual void WriteTo(std::ostream& o);
+            virtual void ReadFrom(std::istream& i);
+            virtual std::string& GetName();
+
+            NBTTagInt& operator= (const NBTTagInt& rhs);
+        private:
+            int _val;
+            std::string _name;
+    };  
+
     class NBTTagCompound : public NBTTag {
         public:
             typedef std::map<std::string, NBTTag*> TagMap;
@@ -143,8 +162,8 @@ namespace stratigraphy{ namespace nbt {
             case END        : return *(new NBTTagEnd());
             case BYTE       : return *(new NBTTagByte(from));
             case SHORT      : return *(new NBTTagShort(from));
+            case INT        : return *(new NBTTagInt(from));
             /*
-            case INT        :
             case LONG       :
             case FLOAT      :
             case DOUBLE     :
