@@ -19,7 +19,6 @@ NBTTagInt::NBTTagInt(string& name, int val) : _val(0), _name(name) {
 }
 
 NBTTagInt::~NBTTagInt() {
-    delete &_name;
 }
 
 TagType NBTTagInt::GetTagType() {

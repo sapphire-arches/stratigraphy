@@ -18,7 +18,6 @@ NBTTagShort::NBTTagShort(string& name, short val) : _val(val), _name(name) {
 }
 
 NBTTagShort::~NBTTagShort() {
-    delete &_name;
 }
 
 TagType NBTTagShort::GetTagType() {

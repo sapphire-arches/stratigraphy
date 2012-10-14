@@ -14,7 +14,6 @@ NBTTagByte::NBTTagByte(string& name, char val) : _name(name), _val(val) {
 }
 
 NBTTagByte::~NBTTagByte() {
-    delete &_name;
 }
 
 TagType NBTTagByte::GetTagType() {
