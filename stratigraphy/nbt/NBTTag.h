@@ -177,7 +177,7 @@ namespace stratigraphy{ namespace nbt {
             NBTTagDouble(std::string& name);
             NBTTagDouble(std::string& name, double val);
             
-            virtual ~NBTTagLong();
+            virtual ~NBTTagDouble();
 
             virtual TagType GetTagType();
             virtual void WriteTo(std::ostream& o);

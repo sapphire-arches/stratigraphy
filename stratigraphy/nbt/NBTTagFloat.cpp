@@ -1,7 +1,7 @@
 #include "nbt/NBTTag.h"
 #include "nbt/IOUtils.h"
 
-#include <boost/format.h>
+#include <boost/format.hpp>
 
 using namespace stratigraphy;
 using namespace nbt;
@@ -23,13 +23,13 @@ TagType NBTTagFloat::GetTagType() {
 }
 
 void NBTTagFloat::WriteTo(ostream& o) {
-    out.put(char(FLOAT)); //write our header
+    o.put(char(FLOAT)); //write our header
     char buff[4];
-    WriteString(out, _name, buff); //Write name
-    WriteFloatBE(out, _val, buff); //Write our value.
+    WriteString(o, _name, buff); //Write name
+    WriteFloatBE(o, _val, buff); //Write our value.
 }
 
-void NBTTagFloat::ReadFrom(istream& i) {
+void NBTTagFloat::ReadFrom(istream& is) {
     int i = is.get();
     if (i != FLOAT) {
         is.setstate(ios_base::failbit);
@@ -49,7 +49,7 @@ NBTTagFloat& NBTTagFloat::operator= (const NBTTagFloat& rhs) {
 
     delete &_name;
 
-    _name = string(_rhs.name);
+    _name = string(rhs._name);
     _val = rhs._val;
 
     return *this;

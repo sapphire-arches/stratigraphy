@@ -66,6 +66,6 @@ int NBTTagInt::GetValue() {
     return _val;
 }
 
-void NBTTAgInt::SetValue(int i) {
+void NBTTagInt::SetValue(int i) {
     _val = i;
 }

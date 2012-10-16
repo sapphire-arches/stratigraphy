@@ -45,16 +45,25 @@ inline void WriteLongBE(ostream& o, int64 l, char *buff) {
 }
 
 inline void WriteFloatBE(ostream& o, float f, char *buff) {
-    union {float ff, int i};
+    union {float ff; int i;};
     ff = f;
     WriteIntBE(o, i, buff);
 }
 
 inline void WriteDoubleBE(ostream& o, double d, char *buff) {
-    union {double dd, int64 i};
+    union {double dd; int64 i;};
     dd = d;
     WriteIntBE(o, i, buff);
 }
+
+inline void WriteString(ostream& o, string& s, char *buff) {
+    WriteShortBE(o, short(s.length()), buff); //write len
+    o << s; //write string
+}
+
+
+/*****************************BEGIN READ FUNCTIONS******************************/
+
 
 inline short ReadShortBE(istream& f, char *buff) {
     f.read(buff, 2);
@@ -84,20 +93,15 @@ inline int64 ReadLongBE(istream& f, char *buff) {
 }
 
 inline float ReadFloatBE(istream& in, char *buff) {
-    union {float f, int i};
+    union {float f; int i;};
     i = ReadIntBE(in, buff);
     return f;
 }
 
 inline double ReadDoubleBE(istream& in, char *buff) {
-    union {double d, int64 i};
+    union {double d; int64 i;};
     i = ReadLongBE(in, buff);
     return i;
-}
-
-inline void WriteString(ostream& o, string& s, char *buff) {
-    WriteShortBE(o, short(s.length()), buff); //write len
-    o << s; //write string
 }
 
 inline string ReadString(istream& i, char *buf) {

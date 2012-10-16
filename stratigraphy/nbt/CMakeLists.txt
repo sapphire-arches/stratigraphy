@@ -5,6 +5,7 @@ add_library(nbt NBTTagEnd
                 NBTTagShort
                 NBTTagInt
                 NBTTagLong
+                NBTTagFloat
                 NBTTagCompound
                 NBTTag
                 NBTTree
