@@ -11,10 +11,16 @@ namespace stratigraphy { namespace nbt {
     inline void WriteShortBE(std::ostream& o, short s, char *buff);
     inline void WriteIntBE  (std::ostream& o, int   i, char *buff);
     inline void WriteLongBE (std::ostream& o, int64 l, char *buff);
+
+    inline void WriteFloatBE(std::ostream& o, float f, char *buff);
+    inline void WriteDoubleBE(std::ostream& o, float f, char *buff);
     
     inline short ReadShortBE(std::istream& from, char *buff);
     inline int   ReadIntBE  (std::istream& from, char *buff);
     inline int64 ReadLongBE (std::istream& from, char *buff);
+
+    inline float ReadFloatBE(std::istream& from, char *buff);
+    inline double ReadDoubleBE(std::istream& from, char *buff);
 
     inline void WriteString(std::ostream& o, std::string& s, char *buf);
     inline std::string ReadString(std::istream& i, char *buf);

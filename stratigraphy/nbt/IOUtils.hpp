@@ -44,6 +44,18 @@ inline void WriteLongBE(ostream& o, int64 l, char *buff) {
     }
 }
 
+inline void WriteFloatBE(ostream& o, float f, char *buff) {
+    union {float ff, int i};
+    ff = f;
+    WriteIntBE(o, i, buff);
+}
+
+inline void WriteDoubleBE(ostream& o, double d, char *buff) {
+    union {double dd, int64 i};
+    dd = d;
+    WriteIntBE(o, i, buff);
+}
+
 inline short ReadShortBE(istream& f, char *buff) {
     f.read(buff, 2);
     if (!f.good()) {
@@ -69,6 +81,18 @@ inline int64 ReadLongBE(istream& f, char *buff) {
     int i2 = ReadIntBE(f, buff);
     int64 temp = i1 | (((int64)i2) << 32);
     return temp;
+}
+
+inline float ReadFloatBE(istream& in, char *buff) {
+    union {float f, int i};
+    i = ReadIntBE(in, buff);
+    return f;
+}
+
+inline double ReadDoubleBE(istream& in, char *buff) {
+    union {double d, int64 i};
+    i = ReadLongBE(in, buff);
+    return i;
 }
 
 inline void WriteString(ostream& o, string& s, char *buff) {
