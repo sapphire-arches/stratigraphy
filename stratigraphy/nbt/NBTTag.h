@@ -73,6 +73,9 @@ namespace stratigraphy{ namespace nbt {
             virtual void WriteTo(std::ostream& out);
             virtual void ReadFrom(std::istream& in);
             virtual std::string& GetName();
+            
+            virtual char GetValue();
+            virtual void SetValue(char c);
 
             NBTTagByte& operator= (const NBTTagByte& rhs);
         private:
@@ -92,6 +95,9 @@ namespace stratigraphy{ namespace nbt {
             virtual void WriteTo(std::ostream& o);
             virtual void ReadFrom(std::istream& i);
             virtual std::string& GetName();
+            
+            virtual short GetValue();
+            virtual void SetValue(short s);
 
             NBTTagShort& operator= (const NBTTagShort& rhs);
         private:
@@ -112,6 +118,9 @@ namespace stratigraphy{ namespace nbt {
             virtual void ReadFrom(std::istream& i);
             virtual std::string& GetName();
 
+            virtual int GetValue();
+            virtual void SetValue(int i);
+
             NBTTagInt& operator= (const NBTTagInt& rhs);
         private:
             int _val;
@@ -131,12 +140,58 @@ namespace stratigraphy{ namespace nbt {
             virtual void ReadFrom(std::istream& i);
             virtual std::string& GetName();
 
+            virtual int64 GetValue();
+            virtual void SetValue(int64 i);
+
             NBTTagLong& operator= (const NBTTagLong& rhs);
         private:
             int64 _val;
             std::string _name;
-    };  
+    }; 
 
+     class NBTTagFloat : public NBTTag {
+        public:
+            NBTTagFloat(std::istream& from);
+            NBTTagFloat(std::string& name);
+            NBTTagFloat(std::string& name, float val);
+            
+            virtual ~NBTTagLong();
+
+            virtual TagType GetTagType();
+            virtual void WriteTo(std::ostream& o);
+            virtual void ReadFrom(std::istream& i);
+            virtual std::string& GetName();
+
+            virtual float GetValue();
+            virtual void SetValue(float f);
+
+            NBTTagFloat& operator= (const NBTTagFloat& rhs);
+        private:
+            float _val;
+            std::string _name;
+    };
+  
+    class NBTTagDouble : public NBTTag {
+        public:
+            NBTTagDouble(std::istream& from);
+            NBTTagDouble(std::string& name);
+            NBTTagDouble(std::string& name, double val);
+            
+            virtual ~NBTTagLong();
+
+            virtual TagType GetTagType();
+            virtual void WriteTo(std::ostream& o);
+            virtual void ReadFrom(std::istream& i);
+            virtual std::string& GetName();
+
+            virtual double GetValue();
+            virtual void SetValue(double d);
+
+            NBTTagDouble& operator= (const NBTTagDouble& rhs);
+        private:
+            double _val;
+            std::string _name;
+    };
 
     class NBTTagCompound : public NBTTag {
         public:
@@ -184,10 +239,10 @@ namespace stratigraphy{ namespace nbt {
             case BYTE       : return *(new NBTTagByte(from));
             case SHORT      : return *(new NBTTagShort(from));
             case INT        : return *(new NBTTagInt(from));
+            case LONG       : return *(new NBTTagLong(from));
+            case FLOAT      : return *(new NBTTagFloat(from));
+            case DOUBLE     : return *(new NBTTagDouble(from));
             /*
-            case LONG       :
-            case FLOAT      :
-            case DOUBLE     :
             case BYTE_ARRAY :
             case STRING     :
             case LIST       :

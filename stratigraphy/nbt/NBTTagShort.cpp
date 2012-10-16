@@ -60,3 +60,11 @@ NBTTagShort& NBTTagShort::operator= (const NBTTagShort& rhs) {
 
     return *this;
 }
+
+short NBTTagShort::GetValue() {
+    return _val;
+}
+
+void NBTTagShort::SetValue(short s) {
+    _val = s;
+}

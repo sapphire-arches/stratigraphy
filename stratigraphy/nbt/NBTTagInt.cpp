@@ -61,3 +61,11 @@ NBTTagInt& NBTTagInt::operator= (const NBTTagInt& rhs) {
 
     return *this;
 }
+
+int NBTTagInt::GetValue() {
+    return _val;
+}
+
+void NBTTAgInt::SetValue(int i) {
+    _val = i;
+}

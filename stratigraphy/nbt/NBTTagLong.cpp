@@ -60,3 +60,11 @@ NBTTagLong& NBTTagLong::operator= (const NBTTagLong& rhs) {
     _name = string(rhs._name);
     _val = rhs._val;
 }
+
+int64 NBTTagLong::GetValue() {
+    return _val;
+}
+
+void NBTTagLong::SetValue(int64 i) {
+    _val = i;
+}

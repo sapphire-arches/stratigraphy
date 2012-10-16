@@ -54,3 +54,11 @@ NBTTagByte& NBTTagByte::operator= (const NBTTagByte& rhs) {
 string& NBTTagByte::GetName() {
     return _name;
 }
+
+char NBTTagByte::GetValue() {
+   return _val;
+}
+
+void NBTTagByte::SetValue(char c) {
+    _val = c;
+}
