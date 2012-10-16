@@ -155,7 +155,7 @@ namespace stratigraphy{ namespace nbt {
             NBTTagFloat(std::string& name);
             NBTTagFloat(std::string& name, float val);
             
-            virtual ~NBTTagLong();
+            virtual ~NBTTagFloat();
 
             virtual TagType GetTagType();
             virtual void WriteTo(std::ostream& o);
