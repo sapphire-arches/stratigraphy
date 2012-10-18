@@ -25,25 +25,13 @@ TagType NBTTagLong::GetTagType() {
     return LONG;
 }
 
-void NBTTagLong::WriteTo(ostream& o) {
-    o.put(char(LONG));
+void NBTTagLong::WriteData(ostream& o, char *buff) {
     char buff[4];
-    WriteString(o, _name, buff);
     WriteLongBE(o, _val, buff);
 }
 
-void NBTTagLong::ReadFrom(istream& is) {
-    int i = is.get();
-    if (i != LONG) {
-        is.setstate(ios_base::failbit);
-        const string fmt = "Error reading long tag, unexpected tag header byte %02x.";
-        const string temp = (boost::format(fmt) % i).str();
-        throw ios_base::failure(temp);
-    }
-    char buff[4];
-    _name = ReadString(is, buff);
+void NBTTagLong::ReadData(istream& is, char *buff) {
     _val = ReadLongBE(is, buff);
-
 }
 
 string& NBTTagLong::GetName() {

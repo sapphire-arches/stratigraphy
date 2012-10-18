@@ -25,21 +25,13 @@ TagType NBTTagInt::GetTagType() {
     return INT;
 }
 
-void NBTTagInt::WriteTo(ostream& o) {
-    o.put(char(INT));
+void NBTTagInt::WriteData(ostream& o) {
     char buff[4];
     WriteString(o, _name, buff);
     WriteIntBE(o, _val, buff);
 }
 
-void NBTTagInt::ReadFrom(istream& is) {
-    int i = is.get();
-    if (i != INT) {
-        is.setstate(ios_base::failbit);
-        const string fmt = "Error reading int tag, unexpected tag header byte %02x.";
-        const string temp = (boost::format(fmt) % i).str();
-        throw ios_base::failure(temp);
-    }
+void NBTTagInt::ReadData(istream& is) {
     char buff[4];
     _name = ReadString(is, buff);
     _val = ReadIntBE(is, buff);

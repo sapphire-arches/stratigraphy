@@ -20,21 +20,13 @@ TagType NBTTagByte::GetTagType() {
     return BYTE;
 }
 
-void NBTTagByte::WriteTo(ostream& out) {
-    out.put(char(BYTE)); //write our header
+void NBTTagByte::WriteData(ostream& out) {
     char buff[4];
     WriteString(out, _name, buff); //Write name
     out.put(_val); //Write our value.
 }
 
-void NBTTagByte::ReadFrom(istream& is) {
-    int i = is.get();
-    if (i != BYTE) {
-        is.setstate(ios_base::failbit);
-        const string fmt = "Error reading Byte tag, unexpected tag header byte %02x.";
-        const string temp = (boost::format(fmt) % i).str();
-        throw ios_base::failure(temp);
-    }
+void NBTTagByte::ReadData(istream& is) {
     char buff[4];
     _name = ReadString(is, buff);
     _val = is.get();

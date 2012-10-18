@@ -24,21 +24,13 @@ TagType NBTTagShort::GetTagType() {
     return SHORT;
 }
 
-void NBTTagShort::WriteTo(ostream& o) {
-    o.put(char(SHORT));
+void NBTTagShort::WriteData(ostream& o) {
     char buff[4];
     WriteString(o, _name, buff);
     WriteShortBE(o, _val, buff);
 }
 
-void NBTTagShort::ReadFrom(istream& is) {
-    int i = is.get();
-    if (i != SHORT) {
-        is.setstate(ios_base::failbit);
-        const string fmt = "Error reading short tag, unexpected tag header byte %02x.";
-        const string temp = (boost::format(fmt) % i).str();
-        throw ios_base::failure(temp);
-    }
+void NBTTagShort::ReadData(istream& is) {
     char buff[4];
     _name = ReadString(is, buff);
     _val = ReadShortBE(is, buff);
