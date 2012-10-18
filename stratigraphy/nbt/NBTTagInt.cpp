@@ -12,10 +12,10 @@ NBTTagInt::NBTTagInt(istream& from) {
     ReadFrom(from);
 }
 
-NBTTagInt::NBTTagInt(string& name) : _val(0), _name(name) {
+NBTTagInt::NBTTagInt(string& name) : _val(0), NBTTag(name) {
 }
 
-NBTTagInt::NBTTagInt(string& name, int val) : _val(0), _name(name) {
+NBTTagInt::NBTTagInt(string& name, int val) : _val(0), NBTTag(name) {
 }
 
 NBTTagInt::~NBTTagInt() {
@@ -25,20 +25,12 @@ TagType NBTTagInt::GetTagType() {
     return INT;
 }
 
-void NBTTagInt::WriteData(ostream& o) {
-    char buff[4];
-    WriteString(o, _name, buff);
+void NBTTagInt::WriteData(ostream& o, char* buff) {
     WriteIntBE(o, _val, buff);
 }
 
-void NBTTagInt::ReadData(istream& is) {
-    char buff[4];
-    _name = ReadString(is, buff);
+void NBTTagInt::ReadData(istream& is, char* buff) {
     _val = ReadIntBE(is, buff);
-}
-
-string& NBTTagInt::GetName() {
-    return _name;
 }
 
 NBTTagInt& NBTTagInt::operator= (const NBTTagInt& rhs) {

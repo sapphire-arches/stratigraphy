@@ -28,6 +28,7 @@ namespace stratigraphy{ namespace nbt {
     class NBTTag {
         public:
             NBTTag();
+            NBTTag(std::string& name);
             NBTTag(const NBTTag &tag);
 
             virtual ~NBTTag() = 0;
@@ -44,8 +45,10 @@ namespace stratigraphy{ namespace nbt {
         protected:
             virtual void WriteData(std::ostream& o, char *buff) = 0;
             virtual void ReadData(std::istream& i, char *buff) = 0;
-        private:
+
             std::string _name;
+        private:
+            //No private data
     };
 
     class NBTTagEnd : public NBTTag {
@@ -58,11 +61,14 @@ namespace stratigraphy{ namespace nbt {
             virtual TagType GetTagType();
             virtual std::string& GetName();
             virtual void SetName(std::string& name);
+            //We need to override these because TAG_ENDs are never named
+            virtual void WriteTo(std::ostream& o);
+            virtual void ReadFrom(std::istream& i); 
 
             NBTTagEnd& operator= (const NBTTagEnd& rhs);
         protected:
-            virtual void WriteData(std::ostream& o);
-            virtual void ReadData(std::istream& i);
+            virtual void WriteData(std::ostream& o, char* buff);
+            virtual void ReadData(std::istream& i, char* buff);
         private:
     };
 
@@ -82,8 +88,8 @@ namespace stratigraphy{ namespace nbt {
 
             NBTTagByte& operator= (const NBTTagByte& rhs);
         protected:
-            virtual void WriteData(std::ostream& o);
-            virtual void ReadData(std::istream& i);
+            virtual void WriteData(std::ostream& o, char* buff);
+            virtual void ReadData(std::istream& i, char* buff);
         private:
             char _val;
     };
@@ -97,15 +103,14 @@ namespace stratigraphy{ namespace nbt {
             virtual ~NBTTagShort();
 
             virtual TagType GetTagType();
-            virtual std::string& GetName();
             
             virtual short GetValue();
             virtual void SetValue(short s);
 
             NBTTagShort& operator= (const NBTTagShort& rhs);
         protected:
-            virtual void WriteData(std::ostream& o);
-            virtual void ReadData(std::istream& i);
+            virtual void WriteData(std::ostream& o, char* buff);
+            virtual void ReadData(std::istream& i, char* buff);
         private:
             short _val;
     };
@@ -125,8 +130,8 @@ namespace stratigraphy{ namespace nbt {
 
             NBTTagInt& operator= (const NBTTagInt& rhs);
         protected:
-            virtual void WriteData(std::ostream& o);
-            virtual void ReadData(std::istream& i);
+            virtual void WriteData(std::ostream& o, char* buff);
+            virtual void ReadData(std::istream& i, char* buff);
         private:
             int _val;
     };  
@@ -140,15 +145,14 @@ namespace stratigraphy{ namespace nbt {
             virtual ~NBTTagLong();
 
             virtual TagType GetTagType();
-            virtual std::string& GetName();
 
             virtual int64 GetValue();
             virtual void SetValue(int64 i);
 
             NBTTagLong& operator= (const NBTTagLong& rhs);
         protected:
-            virtual void WriteData(std::ostream& o);
-            virtual void ReadData(std::istream& i);
+            virtual void WriteData(std::ostream& o, char* buff);
+            virtual void ReadData(std::istream& i, char* buff);
         private:
             int64 _val;
     }; 
@@ -168,8 +172,8 @@ namespace stratigraphy{ namespace nbt {
 
             NBTTagFloat& operator= (const NBTTagFloat& rhs);
         protected:
-            virtual void WriteData(std::ostream& o);
-            virtual void ReadData(std::istream& i);
+            virtual void WriteData(std::ostream& o, char* buff);
+            virtual void ReadData(std::istream& i, char* buff);
         private:
             float _val;
     };
@@ -189,8 +193,8 @@ namespace stratigraphy{ namespace nbt {
 
             NBTTagDouble& operator= (const NBTTagDouble& rhs);
         protected:
-            virtual void WriteData(std::ostream& o);
-            virtual void ReadData(std::istream& i);
+            virtual void WriteData(std::ostream& o, char* buff);
+            virtual void ReadData(std::istream& i, char* buff);
         private:
             double _val;
     };
@@ -214,11 +218,9 @@ namespace stratigraphy{ namespace nbt {
             
             NBTTagCompound& operator= (const NBTTagCompound& rhs);
         protected:
-            virtual void WriteData(std::ostream& o);
-            virtual void ReadData(std::istream& i);
+            virtual void WriteData(std::ostream& o, char* buff);
+            virtual void ReadData(std::istream& i, char* buff);
         private:
-            void Init(std::string& name, TagMap* tags);
-
             TagMap _tags;
     };
 

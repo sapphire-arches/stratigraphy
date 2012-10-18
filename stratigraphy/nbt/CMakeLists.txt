@@ -1,14 +1,13 @@
 include_directories (..)
 
-add_library(nbt NBTTagEnd
+add_library(nbt NBTTag
+                NBTTagEnd
                 NBTTagByte
                 NBTTagShort
                 NBTTagInt
                 NBTTagLong
                 NBTTagFloat
-                NBTTagDouble
                 NBTTagCompound
-                NBTTag
                 NBTTree
            )
 target_link_libraries (nbt boost ioutils)

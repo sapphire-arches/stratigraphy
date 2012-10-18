@@ -11,10 +11,10 @@ NBTTagShort::NBTTagShort(istream& from) {
     ReadFrom(from);
 }
 
-NBTTagShort::NBTTagShort(string& name) : _val(0), _name(name) {
+NBTTagShort::NBTTagShort(string& name) : _val(0), NBTTag(name) {
 }
 
-NBTTagShort::NBTTagShort(string& name, short val) : _val(val), _name(name) {
+NBTTagShort::NBTTagShort(string& name, short val) : _val(val), NBTTag(name) {
 }
 
 NBTTagShort::~NBTTagShort() {
@@ -24,20 +24,12 @@ TagType NBTTagShort::GetTagType() {
     return SHORT;
 }
 
-void NBTTagShort::WriteData(ostream& o) {
-    char buff[4];
-    WriteString(o, _name, buff);
+void NBTTagShort::WriteData(ostream& o, char* buff) {
     WriteShortBE(o, _val, buff);
 }
 
-void NBTTagShort::ReadData(istream& is) {
-    char buff[4];
-    _name = ReadString(is, buff);
+void NBTTagShort::ReadData(istream& is, char* buff) {
     _val = ReadShortBE(is, buff);
-}
-
-string& NBTTagShort::GetName() {
-    return _name;
 }
 
 NBTTagShort& NBTTagShort::operator= (const NBTTagShort& rhs) {

@@ -1,4 +1,7 @@
 #include "nbt/NBTTag.h"
+#include "nbt/IOUtils.h"
+
+#include <boost/format.hpp>
 
 using namespace stratigraphy;
 using namespace nbt;
@@ -28,10 +31,12 @@ istream& NBTTag::operator>>(istream& ins) {
 
 void NBTTag::WriteTo(ostream& out) {
     out.put(GetTagType());
-    WriteData(out);
+    char buff[4];
+    WriteString(out, _name, buff);
+    WriteData(out, buff);
 }
 
-void NBTTag::ReadFrom(istream& i) {
+void NBTTag::ReadFrom(istream& is) {
     int i = is.get();
     if (i != GetTagType()) {
         is.setstate(ios_base::failbit);
@@ -40,6 +45,6 @@ void NBTTag::ReadFrom(istream& i) {
         throw ios_base::failure(temp);
     }
     char buff[4];
-    SetName(
-    ReadData(i);
+    _name = ReadString(is, buff);
+    ReadData(is, buff);
 }

@@ -12,10 +12,10 @@ NBTTagLong::NBTTagLong(istream& from) {
     ReadFrom(from);
 }
 
-NBTTagLong::NBTTagLong(string& name) : _val(0), _name(name) {
+NBTTagLong::NBTTagLong(string& name) : _val(0), NBTTag(name) {
 }
 
-NBTTagLong::NBTTagLong(string& name, int64 val) : _val(val), _name(name) {
+NBTTagLong::NBTTagLong(string& name, int64 val) : _val(val), NBTTag(name) {
 }
 
 NBTTagLong::~NBTTagLong() {
@@ -26,16 +26,11 @@ TagType NBTTagLong::GetTagType() {
 }
 
 void NBTTagLong::WriteData(ostream& o, char *buff) {
-    char buff[4];
     WriteLongBE(o, _val, buff);
 }
 
 void NBTTagLong::ReadData(istream& is, char *buff) {
     _val = ReadLongBE(is, buff);
-}
-
-string& NBTTagLong::GetName() {
-    return _name;
 }
 
 NBTTagLong& NBTTagLong::operator= (const NBTTagLong& rhs) {
